@@ -17,6 +17,7 @@
     "lint": {
       "dependsOn": ["format:check"],
       "inputs": ["**/*.{js,jsx,ts,tsx}"]
-    }
+    },
+    "lint:fix": {}
   }
 }

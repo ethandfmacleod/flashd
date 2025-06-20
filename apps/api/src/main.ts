@@ -15,7 +15,6 @@ server.register(fastifyTRPCPlugin, {
     },
   } satisfies FastifyTRPCPluginOptions<AppRouter>['trpcOptions'],
 })
-
 ;(async () => {
   try {
     await server.listen({ port: 3000 })
