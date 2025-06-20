@@ -1,7 +1,7 @@
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
-import { Stack } from 'expo-router';
-import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider'
+import { Stack } from 'expo-router'
+import React from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export default function RootLayout() {
   return (
@@ -16,5 +16,5 @@ export default function RootLayout() {
         {/* </AuthProvider> */}
       </GluestackUIProvider>
     </SafeAreaProvider>
-  );
+  )
 }

@@ -1,0 +1,19 @@
+# .prettierignore
+node_modules
+dist
+build
+.next
+.turbo
+.expo
+coverage
+
+# Generated files
+*.generated.*
+prisma/migrations
+**/*.min.js
+**/*.min.css
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

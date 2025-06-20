@@ -3,9 +3,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check",
+    "format:root": "prettier --write ."
   },
   "devDependencies": {
+    "prettier": "^3.5.3",
     "turbo": "latest"
   },
   "packageManager": "npm@10.0.0",
