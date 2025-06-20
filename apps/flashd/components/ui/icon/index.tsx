@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { createIcon , PrimitiveIcon, IPrimitiveIcon, Svg } from '@gluestack-ui/icon'
+import { createIcon, PrimitiveIcon, IPrimitiveIcon, Svg } from '@gluestack-ui/icon'
 import { Path } from 'react-native-svg'
 import { tva } from '@gluestack-ui/nativewind-utils/tva'
 import { cssInterop } from 'nativewind'
