@@ -6,8 +6,8 @@ export const authClient = createAuthClient({
   baseURL: process.env.EXPO_PUBLIC_SERVER_URL || 'http://localhost:3000',
   plugins: [
     expoClient({
-      scheme: 'myapp',
-      storagePrefix: 'myapp',
+      scheme: 'flashd',
+      storagePrefix: 'flashd',
       storage: SecureStore,
     }),
   ],

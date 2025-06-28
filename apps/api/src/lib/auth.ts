@@ -53,10 +53,7 @@ export const auth = betterAuth({
       },
     },
   },
-  trustedOrigins: [
-    "http://localhost:3000",
-    "http://localhost:8081",
-  ],
+  trustedOrigins: ["flashd://"],
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,
   plugins: [apiKey(), organization(), expo()],
