@@ -32,7 +32,7 @@ export function TRPCProvider({ children }: { children: React.ReactNode }) {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc`,
+          url: `${getBaseUrl()}/trpc`,
           headers() {
             const headers = new Map<string, string>()
             try {

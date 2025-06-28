@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "CommonJS",        
+    "moduleResolution": "Node", 
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "allowJs": true,
@@ -31,6 +31,6 @@
   "include": ["src/**/*", "prisma/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
   "ts-node": {
-    "esm": true
+    "esm": false
   }
 }

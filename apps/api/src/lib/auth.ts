@@ -11,17 +11,14 @@ export const auth = betterAuth({
   database: prismaAdapter(db, {
     provider: 'postgresql',
   }),
-
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false, // For development - true in prod
   },
-
   rateLimit: {
     window: 10, // time window in seconds
     max: 5, // max requests in the window
   },
-
   socialProviders: {
     github:
       process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
@@ -30,7 +27,6 @@ export const auth = betterAuth({
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
           }
         : undefined,
-
     google:
       process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
         ? {
@@ -39,12 +35,10 @@ export const auth = betterAuth({
           }
         : undefined,
   },
-
   session: {
     expiresIn: 60 * 60 * 24 * 14, // Two weeks
     updateAge: 60 * 60 * 24, // One day
   },
-
   user: {
     additionalFields: {
       subscriptionTier: {
@@ -59,14 +53,12 @@ export const auth = betterAuth({
       },
     },
   },
-
-  advanced: {
-    generateId: false,
-  },
-
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://localhost:8081",
+  ],
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,
-
   plugins: [apiKey(), organization(), expo()],
 })
 
