@@ -16,8 +16,8 @@ export const auth = betterAuth({
     requireEmailVerification: false, // For development - true in prod
   },
   rateLimit: {
-    window: 10, // time window in seconds
-    max: 5, // max requests in the window
+    window: 10,
+    max: 5,
   },
   socialProviders: {
     github:
