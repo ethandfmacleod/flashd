@@ -1,11 +1,13 @@
 import { authClient } from '@/lib/auth'
 import { useState } from 'react'
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { useToastNotifications } from '../alerts'
 
 export function LoginForm() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const { showError } = useToastNotifications();
 
     const handleSignIn = async () => {
         if (!email || !password) {
@@ -21,11 +23,17 @@ export function LoginForm() {
             })
 
             if (result.error) {
-                Alert.alert('Sign In Failed', result.error.message || 'Please try again')
+                showError({
+                    title: 'Sign In Failed',
+                    description: result.error.message
+                })
             }
         } catch (error) {
-            Alert.alert('Error', 'An unexpected error occurred')
-            console.error('Sign in error:', error)
+            console.error(error)
+            showError({
+                title: 'Sign In Failed',
+                description: `An unexpected error occured: ${error}`
+            })
         } finally {
             setIsLoading(false)
         }

@@ -1,6 +1,10 @@
 
+import { TriangleAlert } from 'lucide-react-native';
 import React from 'react';
+import { HStack } from './ui/hstack';
+import { Icon } from './ui/icon';
 import { Toast, ToastDescription, ToastTitle, useToast } from './ui/toast';
+import { VStack } from './ui/vstack';
 
 interface ToastConfig {
     title: string;
@@ -13,38 +17,51 @@ export const useToastNotifications = () => {
 
     const showError = ({ title, description, duration = 5000 }: ToastConfig) => {
         toast.show({
-            placement: "bottom left",
+            placement: "bottom right",
             render: ({ id }) => {
                 return (
                     <Toast
                         nativeID={`toast-${id}`}
                         action="error"
-                        variant="solid"
+                        variant="outline"
+                        className='m-8 bg-red-100 border border-red-400 py-2 px-4'
                     >
-                        <ToastTitle >
-                            {title}
-                        </ToastTitle>
-                        {description && (
-                            <ToastDescription>
-                                {description}
-                            </ToastDescription>
-                        )}
+                        <HStack space="md" className="items-center" >
+                            <VStack
+                                className='justify-center items-center w-10 h-10'
+                            >
+                                <Icon
+                                    as={TriangleAlert}
+                                    className='text-red-700'
+                                />
+                            </VStack>
+                            <VStack className="flex-1 justify-center">
+                                <ToastTitle>
+                                    {title}
+                                </ToastTitle>
+                                {description && (
+                                    <ToastDescription className='text-sm'>
+                                        {description}
+                                    </ToastDescription>
+                                )}
+                            </VStack>
+                        </HStack>
                     </Toast>
                 );
             },
             duration,
         });
-    };
+    }
 
     const showSuccess = ({ title, description, duration = 4000 }: ToastConfig) => {
         toast.show({
-            placement: "bottom left",
+            placement: "bottom right",
             render: ({ id }) => {
                 return (
                     <Toast
                         nativeID={`toast-${id}`}
                         action="success"
-                        variant="solid"
+                        variant="outline"
                     >
                         <ToastTitle >
                             {title}
@@ -63,13 +80,13 @@ export const useToastNotifications = () => {
 
     const showInfo = ({ title, description, duration = 4000 }: ToastConfig) => {
         toast.show({
-            placement: "bottom left",
+            placement: "bottom right",
             render: ({ id }) => {
                 return (
                     <Toast
                         nativeID={`toast-${id}`}
                         action="info"
-                        variant="solid"
+                        variant="outline"
 
                     >
                         <ToastTitle >
@@ -89,13 +106,13 @@ export const useToastNotifications = () => {
 
     const showWarning = ({ title, description, duration = 4000 }: ToastConfig) => {
         toast.show({
-            placement: "bottom left",
+            placement: "bottom right",
             render: ({ id }) => {
                 return (
                     <Toast
                         nativeID={`toast-${id}`}
                         action="warning"
-                        variant="solid"
+                        variant="outline"
                     >
                         <ToastTitle >
                             {title}
