@@ -1,10 +1,9 @@
-// lib/trpc.ts - Updated tRPC client configuration
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
 import { useState } from 'react'
 import { AppRouter } from '../../api/src/routers/index'
-import { authClient } from './auth'; // Import your auth client
+import { authClient } from './auth'
 
 export const trpc = createTRPCReact<AppRouter>()
 
