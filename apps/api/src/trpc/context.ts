@@ -3,10 +3,21 @@ import { auth } from '../lib/auth'
 import { db } from '../lib/db'
 
 export async function createContext({ req, res }: { req: FastifyRequest; res: FastifyReply }) {
-  // Better auth session
-  const session = await auth.api.getSession({
-    headers: req.headers as any,
-  })
+  const authHeader = req.headers.authorization
+  const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null
+  let session = null
+
+  if (token) {
+    session = await auth.api.getSession({
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
+  } else {
+    session = await auth.api.getSession({
+      headers: req.headers as any,
+    })
+  }
 
   return {
     db,
@@ -16,5 +27,3 @@ export async function createContext({ req, res }: { req: FastifyRequest; res: Fa
     session: session?.session || null,
   }
 }
-
-export type Context = Awaited<ReturnType<typeof createContext>>
