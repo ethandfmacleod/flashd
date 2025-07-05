@@ -1,7 +1,6 @@
 import { expo } from '@better-auth/expo'
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
-import { apiKey, organization } from 'better-auth/plugins'
 import { db } from './db'
 
 // TODO: Set up prod aware config
@@ -58,7 +57,7 @@ export const auth = betterAuth({
     : process.env.ALLOWED_ORIGINS?.split(',') || ["flashd://"],
   secret: process.env.BETTER_AUTH_SECRET,
   baseURL: process.env.BETTER_AUTH_URL,
-  plugins: [apiKey(), organization(), expo()],
+  plugins: [expo()],
 })
 
 export type Auth = typeof auth

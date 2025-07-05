@@ -24,6 +24,7 @@ model User {
   apikeys            Apikey[]
   members            Member[]
   invitations        Invitation[]
+  decks              Deck[]
 
   @@unique([email])
   @@map("user")
@@ -140,4 +141,37 @@ model Invitation {
   user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
 
   @@map("invitation")
+}
+
+model Deck {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  color       String?     @default("#3b82f6")
+  isPublic    Boolean     @default(false)
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cards       Card[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("deck")
+}
+
+model Card {
+  id            String    @id @default(cuid())
+  front         String
+  back          String
+  hint          String?
+  difficulty    Int       @default(1)
+  lastReviewed  DateTime?
+  nextReview    DateTime?
+  reviewCount   Int       @default(0)
+  correctCount  Int       @default(0)
+  deckId        String
+  deck          Deck      @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("card")
 }

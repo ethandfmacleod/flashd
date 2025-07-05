@@ -3,9 +3,7 @@ import { t } from './utils'
 
 // Auth middleware
 export const isAuth = t.middleware(({ next, ctx }) => {
-  if (!ctx.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Not authenticated' })
-  }
+  if (!ctx.user) throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Not authenticated' })
 
   return next({
     ctx: {
