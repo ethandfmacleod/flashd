@@ -1,10 +1,11 @@
-import { AuthDebug } from '@/components/debug/AuthDebug'
 import { Box } from '@/components/ui/box'
 import { HStack } from '@/components/ui/hstack'
 import { Pressable } from '@/components/ui/pressable'
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
-import { trpc } from '@/lib/trpc'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { QueryErrorFallback } from '@/components/QueryErrorFallback'
+import { useDecks } from '@/hooks/useDecks'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { ActivityIndicator, FlatList, RefreshControl } from 'react-native'
@@ -66,8 +67,16 @@ function DeckCard({ deck, onPress }: DeckCardProps) {
 }
 
 export default function DecksPage() {
+  return (
+    <ErrorBoundary>
+      <DecksContent />
+    </ErrorBoundary>
+  )
+}
+
+function DecksContent() {
   const router = useRouter()
-  const { data: decks, isLoading, error, refetch } = trpc.deck.getUserDecks.useQuery()
+  const { decks, isLoading, error, refetch } = useDecks()
 
   const handleDeckPress = (deckId: string) => {
     router.push(`/deck/${deckId}` as any)
@@ -80,21 +89,17 @@ export default function DecksPage() {
   if (error) {
     return (
       <SafeAreaView className="flex-1">
-        <Box className="flex-1 justify-center items-center p-6">
-          <Text className="text-red-500 text-center mb-4">
-            Failed to load decks: {error.message}
-          </Text>
-          <Pressable onPress={() => refetch()} className="bg-blue-500 px-4 py-2 rounded">
-            <Text className="text-white">Retry</Text>
-          </Pressable>
-        </Box>
+        <QueryErrorFallback 
+          error={error} 
+          onRetry={() => refetch()} 
+          isLoading={isLoading}
+        />
       </SafeAreaView>
     )
   }
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
-      <AuthDebug />
       <VStack className="flex-1">
         <HStack className="justify-between items-center p-6 bg-white border-b border-gray-200">
           <Text className="text-2xl font-bold text-gray-900">My Decks</Text>
