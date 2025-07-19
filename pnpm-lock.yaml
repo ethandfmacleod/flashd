@@ -121,6 +121,9 @@ importers:
       '@expo/vector-icons':
         specifier: ^14.1.0
         version: 14.1.0(expo-font@13.3.2(expo@53.0.19(@babel/core@7.28.0)(@expo/metro-runtime@5.0.4(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)))(react-native-webview@13.13.5(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@gluestack-ui/alert-dialog':
+        specifier: ^0.1.38
+        version: 0.1.38(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@gluestack-ui/avatar':
         specifier: ^0.1.18
         version: 0.1.18(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -136,6 +139,9 @@ importers:
       '@gluestack-ui/input':
         specifier: ^0.1.38
         version: 0.1.38(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@gluestack-ui/modal':
+        specifier: ^0.1.41
+        version: 0.1.41(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@gluestack-ui/nativewind-utils':
         specifier: ^1.0.26
         version: 1.0.26(nativewind@4.1.23(react-native-reanimated@3.17.5(@babel/core@7.28.0)(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-svg@15.11.2(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3))))(react@19.0.0)(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.0.13)(typescript@5.8.3)))
@@ -1183,6 +1189,12 @@ packages:
   '@formatjs/intl-localematcher@0.6.1':
     resolution: {integrity: sha512-ePEgLgVCqi2BBFnTMWPfIghu6FkbZnnBVhO2sSxvLfrdFw7wCHAHiDoM2h4NRgjbaY7+B7HgOLZGkK187pZTZg==}
 
+  '@gluestack-ui/alert-dialog@0.1.38':
+    resolution: {integrity: sha512-qarZlXlmGHwjfOFaEJgLpNstDd38b7TBMdYtpb6xXIvOA6W6IyNnnKYPNasOiUlNrW8qvqrZrZc+xJfK5USr0w==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
   '@gluestack-ui/avatar@0.1.18':
     resolution: {integrity: sha512-VA9XwtavYLYCWrjxHc2u9gRpV97cPRcr/6KJ4tLiMiQbiRL1b4zckiL+/F39fB6xjUOUQHl3Fjo/Yd8swa0MBg==}
     peerDependencies:
@@ -1215,6 +1227,12 @@ packages:
 
   '@gluestack-ui/input@0.1.38':
     resolution: {integrity: sha512-NzwDOXkkMYzBQ0h7UnhKA2h54/qlxDxMFGXykkmYOl7mc7QJc1aJaveo4yMHtpYvcQG17xLyD+Z+5CQYA76nvw==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+
+  '@gluestack-ui/modal@0.1.41':
+    resolution: {integrity: sha512-pEO5h6TxEpYyU/CEhRD/pAkuBsDfqnFUe51AxK7w6FLjBuTKA5P0wsQ1pfcovJeykkpreG+MiUvNPIo3MW/Lfw==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
@@ -1495,6 +1513,12 @@ packages:
       '@types/react':
         optional: true
 
+  '@react-aria/dialog@3.5.27':
+    resolution: {integrity: sha512-Sp8LWQQYNxkLk2+L0bdWmAd9fz1YIrzvxbHXmAn9Tn6+/4SPnQhkOo+qQwtHFbjqe9fyS7cJZxegXd1RegIFew==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+      react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+
   '@react-aria/focus@3.20.5':
     resolution: {integrity: sha512-JpFtXmWQ0Oca7FcvkqgjSyo6xEP7v3oQOLUId6o0xTvm4AD5W0mU2r3lYrbhsJ+XxdUUX4AVR5473sZZ85kU4A==}
     peerDependencies:
@@ -1536,6 +1560,12 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
       react-dom: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+
+  '@react-native-aria/dialog@0.0.5':
+    resolution: {integrity: sha512-ZThiWyymf3WiA2EdjStV32pTL3RjAb7H/CL0Zsd1wKNuw1lU9HX6h4UIUpt0MZhcFCUnZjCovNtU9IRwbbdj/Q==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
 
   '@react-native-aria/focus@0.2.9':
     resolution: {integrity: sha512-zVgOIzKwnsyyurUxlZnzUKB2ekK/cmK64sQJIKKUlkJKVxd2EAFf7Sjz/NVEoMhTODN3qGRASTv9bMk/pBzzVA==}
@@ -1705,6 +1735,11 @@ packages:
 
   '@react-types/button@3.12.2':
     resolution: {integrity: sha512-QLoSCX8E7NFIdkVMa65TPieve0rKeltfcIxiMtrphjfNn+83L0IHMcbhjf4r4W19c/zqGbw3E53Hx8mNukoTUw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
+
+  '@react-types/dialog@3.5.19':
+    resolution: {integrity: sha512-+FIyFnoKIGNL20zG8Sye7rrRxmt5HoeaCaHhDCTtNtv8CZEhm3Z+kNd4gylgWAxZRhDtBRWko+ADqfN5gQrgKg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
@@ -6839,6 +6874,19 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@gluestack-ui/alert-dialog@0.1.38(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@gluestack-ui/hooks': 0.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@gluestack-ui/overlay': 0.1.22(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@gluestack-ui/utils': 0.1.15(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/dialog': 0.0.5(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/focus': 0.2.9(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/interactions': 0.2.16(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    transitivePeerDependencies:
+      - react-native
+
   '@gluestack-ui/avatar@0.1.18(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@gluestack-ui/utils': 0.1.15(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -6887,6 +6935,20 @@ snapshots:
       '@gluestack-ui/utils': 0.1.15(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@react-native-aria/focus': 0.2.9(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       '@react-native-aria/interactions': 0.2.16(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    transitivePeerDependencies:
+      - react-native
+
+  '@gluestack-ui/modal@0.1.41(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@gluestack-ui/hooks': 0.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@gluestack-ui/overlay': 0.1.22(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@gluestack-ui/utils': 0.1.15(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/dialog': 0.0.5(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/focus': 0.2.9(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/interactions': 0.2.16(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/overlays': 0.3.15(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     transitivePeerDependencies:
@@ -7236,6 +7298,17 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.14
 
+  '@react-aria/dialog@3.5.27(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@react-aria/interactions': 3.25.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-aria/overlays': 3.27.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-aria/utils': 3.29.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-types/dialog': 3.5.19(react@19.0.0)
+      '@react-types/shared': 3.30.0(react@19.0.0)
+      '@swc/helpers': 0.5.17
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   '@react-aria/focus@3.20.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-aria/interactions': 3.25.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7309,6 +7382,17 @@ snapshots:
       '@swc/helpers': 0.5.17
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
+
+  '@react-native-aria/dialog@0.0.5(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@react-aria/dialog': 3.5.27(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-native-aria/utils': 0.2.12(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      '@react-types/dialog': 3.5.19(react@19.0.0)
+      '@react-types/shared': 3.30.0(react@19.0.0)
+      react: 19.0.0
+      react-native: 0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0)
+    transitivePeerDependencies:
+      - react-dom
 
   '@react-native-aria/focus@0.2.9(react-dom@19.0.0(react@19.0.0))(react-native@0.79.4(@babel/core@7.28.0)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -7583,6 +7667,12 @@ snapshots:
 
   '@react-types/button@3.12.2(react@19.0.0)':
     dependencies:
+      '@react-types/shared': 3.30.0(react@19.0.0)
+      react: 19.0.0
+
+  '@react-types/dialog@3.5.19(react@19.0.0)':
+    dependencies:
+      '@react-types/overlays': 3.8.16(react@19.0.0)
       '@react-types/shared': 3.30.0(react@19.0.0)
       react: 19.0.0
 
