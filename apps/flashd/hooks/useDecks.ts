@@ -1,9 +1,10 @@
 import { trpc } from '@/lib/trpc'
 import { FIVE_MINUTES } from '@/lib/utility/constants'
-import { useQueryClient } from '@tanstack/react-query'
+import type { Deck, DeckCreateInput, DeckUpdateInput } from '@/types/api'
+import { useCallback } from 'react'
 
 export const useDecks = () => {
-  const queryClient = useQueryClient()
+  const utils = trpc.useUtils()
 
   const decksQuery = trpc.deck.getUserDecks.useQuery(undefined, {
     staleTime: FIVE_MINUTES,
@@ -16,59 +17,102 @@ export const useDecks = () => {
   })
 
   const createDeckMutation = trpc.deck.createDeck.useMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [['deck', 'getUserDecks']] })
+    onMutate: async (newDeck: DeckCreateInput) => {
+      await utils.deck.getUserDecks.cancel()
+      const previousDecks = utils.deck.getUserDecks.getData()
+
+      const optimisticDeck: Deck = {
+        id: `temp-${Date.now()}`,
+        title: newDeck.title,
+        description: newDeck.description ?? null,
+        color: newDeck.color ?? null,
+        isPublic: newDeck.isPublic ?? false,
+        userId: 'temp-user',
+        cardCount: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        _count: { cards: 0 },
+      }
+
+      utils.deck.getUserDecks.setData(undefined, (old) =>
+        old ? [optimisticDeck, ...old] : [optimisticDeck],
+      )
+
+      return { previousDecks }
     },
-    onError: (error) => {
-      console.error('Failed to create deck:', error)
+    onError: (_, __, context) => {
+      utils.deck.getUserDecks.setData(undefined, context?.previousDecks)
+    },
+    onSettled: () => {
+      utils.deck.getUserDecks.invalidate()
     },
   })
 
   const updateDeckMutation = trpc.deck.updateDeck.useMutation({
-    onMutate: async (updatedDeck) => {
-      // Cancel outgoing refetches
-      await queryClient.cancelQueries({ queryKey: [['deck', 'getUserDecks']] })
+    onMutate: async (updatedDeck: DeckUpdateInput) => {
+      await utils.deck.getUserDecks.cancel()
+      const previousDecks = utils.deck.getUserDecks.getData()
 
-      // Snapshot previous value
-      const previousDecks = queryClient.getQueryData([['deck', 'getUserDecks']])
-
-      // Optimistically update
-      queryClient.setQueryData([['deck', 'getUserDecks']], (old: any) =>
-        old?.map((deck: any) => (deck.id === updatedDeck.id ? { ...deck, ...updatedDeck } : deck)),
+      utils.deck.getUserDecks.setData(
+        undefined,
+        (old) =>
+          old?.map((deck) =>
+            deck.id === updatedDeck.id ? { ...deck, ...updatedDeck, updatedAt: new Date() } : deck,
+          ) ?? [],
       )
 
       return { previousDecks }
     },
-    onError: (err, updatedDeck, context) => {
-      // Rollback on error
-      queryClient.setQueryData([['deck', 'getUserDecks']], context?.previousDecks)
+    onError: (err, _, context) => {
+      utils.deck.getUserDecks.setData(undefined, context?.previousDecks)
       console.error('Failed to update deck:', err)
     },
     onSettled: () => {
-      // Always refetch after error or success
-      queryClient.invalidateQueries({ queryKey: [['deck', 'getUserDecks']] })
+      utils.deck.getUserDecks.invalidate()
     },
   })
 
   const deleteDeckMutation = trpc.deck.deleteDeck.useMutation({
-    onMutate: async (deckId) => {
-      await queryClient.cancelQueries({ queryKey: [['deck', 'getUserDecks']] })
-      const previousDecks = queryClient.getQueryData([['deck', 'getUserDecks']])
+    onMutate: async (variables: { id: string }) => {
+      await utils.deck.getUserDecks.cancel()
+      const previousDecks = utils.deck.getUserDecks.getData()
 
-      queryClient.setQueryData([['deck', 'getUserDecks']], (old: any) =>
-        old?.filter((deck: any) => deck.id !== deckId),
+      utils.deck.getUserDecks.setData(
+        undefined,
+        (old) => old?.filter((deck) => deck.id !== variables.id) ?? [],
       )
 
       return { previousDecks }
     },
-    onError: (err, deckId, context) => {
-      queryClient.setQueryData([['deck', 'getUserDecks']], context?.previousDecks)
+    onError: (err, _, context) => {
+      utils.deck.getUserDecks.setData(undefined, context?.previousDecks)
       console.error('Failed to delete deck:', err)
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: [['deck', 'getUserDecks']] })
+      utils.deck.getUserDecks.invalidate()
     },
   })
+
+  const createDeck = useCallback(
+    (input: DeckCreateInput) => {
+      return createDeckMutation.mutateAsync(input)
+    },
+    [createDeckMutation],
+  )
+
+  const updateDeck = useCallback(
+    (input: DeckUpdateInput) => {
+      return updateDeckMutation.mutateAsync(input)
+    },
+    [updateDeckMutation],
+  )
+
+  const deleteDeck = useCallback(
+    (id: string) => {
+      return deleteDeckMutation.mutateAsync({ id })
+    },
+    [deleteDeckMutation],
+  )
 
   return {
     // Data
@@ -88,9 +132,9 @@ export const useDecks = () => {
 
     // Actions
     refetch: decksQuery.refetch,
-    createDeck: createDeckMutation.mutate,
-    updateDeck: updateDeckMutation.mutate,
-    deleteDeck: deleteDeckMutation.mutate,
+    createDeck,
+    updateDeck,
+    deleteDeck,
 
     // Reset mutations
     resetCreateError: createDeckMutation.reset,

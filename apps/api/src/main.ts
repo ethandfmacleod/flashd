@@ -1,5 +1,5 @@
-import 'dotenv/config'
 import { fastifyTRPCPlugin, FastifyTRPCPluginOptions } from '@trpc/server/adapters/fastify'
+import 'dotenv/config'
 import fastify from 'fastify'
 import { auth } from './lib/auth'
 import { AppRouter, appRouter } from './routers'
@@ -22,22 +22,11 @@ const allowedOrigins = isDev
     ]
   : (process.env.ALLOWED_ORIGINS?.split(',') ?? ['flashd://'])
 
-console.log('Environment:', { isDev, NODE_ENV: process.env.NODE_ENV, allowedOrigins })
-
 server.register(import('@fastify/cors'), {
   origin: (origin, callback) => {
-    // Allow requests with no origin (for mobile apps)
     if (!origin) return callback(null, true)
-
-    // Check if origin is in allowed list
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true)
-    }
-
-    // Allow any flashd:// origin
-    if (origin.startsWith('flashd://')) {
-      return callback(null, true)
-    }
+    if (allowedOrigins.includes(origin)) return callback(null, true)
+    if (origin.startsWith('flashd://')) return callback(null, true)
 
     console.log('CORS rejected origin:', origin, 'Allowed:', allowedOrigins)
     return callback(new Error('Not allowed by CORS'), false)

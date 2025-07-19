@@ -1,8 +1,8 @@
 import { TRPCError } from '@trpc/server'
+import { z } from 'zod'
 import { db } from '../lib/db'
 import { isAuth } from '../trpc/middleware'
 import { publicProcedure, router } from '../trpc/utils'
-import { z } from 'zod'
 
 export const deckRouter = router({
   // Get all decks for user
