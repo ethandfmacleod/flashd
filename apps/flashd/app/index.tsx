@@ -1,25 +1,13 @@
-// import { useAuth } from '@/contexts/AuthContext';
+import { authClient } from '@/lib/auth';
 import { Redirect } from 'expo-router';
 import React from 'react';
 
 export default function Index() {
-  // const { user, isLoading } = useAuth();
+  const { data: session } = authClient.useSession();
 
-  // if (isLoading) {
-  //   return (
-  //     <Box className="flex-1 justify-center items-center">
-  //       <Spinner size="large" />
-  //     </Box>
-  //   );
-  // }
+  if (session?.user) {
+    return <Redirect href="/(tabs)" />;
+  }
 
-  // if (user) {
-  //   return <Redirect href="/(tabs)" />;
-  // }
-
-  // return <Redirect href="/(auth)" />;
-
-  // TODO: Remove
-  return <Redirect href="/(tabs)" />;
-
+  return <Redirect href="/(auth)" />;
 }
