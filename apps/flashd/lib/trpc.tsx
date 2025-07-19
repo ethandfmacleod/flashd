@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { createTRPCReact } from '@trpc/react-query'
-import { AppRouter } from 'flashd/apps/api/src/routers/index.ts'
+import type { AppRouter } from '../../../api/src/routers/index'
 import { useState } from 'react'
 import { authClient } from './auth'
 

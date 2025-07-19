@@ -4,8 +4,11 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"],
+      "@api/*": ["../api/src/*"],
       "tailwind.config": ["./tailwind.config.js"]
-    }
+    },
+    "baseUrl": ".",
+    "moduleResolution": "bundler"
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts", "../api/src/**/*.ts"]
 }

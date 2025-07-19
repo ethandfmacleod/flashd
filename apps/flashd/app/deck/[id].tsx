@@ -16,11 +16,11 @@ export default function DeckDetailPage() {
   const { showError } = useToastNotifications()
 
   const { data: deck, isLoading, error } = trpc.deck.getDeck.useQuery(
-    { id: id! },
+    { id },
     { enabled: !!id }
   )
   const { data: stats } = trpc.deck.getDeckStats.useQuery(
-    { id: id! },
+    { id },
     { enabled: !!id }
   )
 

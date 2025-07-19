@@ -1,25 +1,20 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { QueryErrorFallback } from '@/components/QueryErrorFallback'
 import { Box } from '@/components/ui/box'
 import { HStack } from '@/components/ui/hstack'
 import { Pressable } from '@/components/ui/pressable'
 import { Text } from '@/components/ui/text'
 import { VStack } from '@/components/ui/vstack'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
-import { QueryErrorFallback } from '@/components/QueryErrorFallback'
 import { useDecks } from '@/hooks/useDecks'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { ActivityIndicator, FlatList, RefreshControl } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { plural } from '@/lib/utility/functions'
+
 interface DeckCardProps {
-  deck: {
-    id: string
-    title: string
-    description?: string | null
-    color?: string | null
-    cardCount: number
-    updatedAt: Date
-  }
+  deck: any
   onPress: () => void
 }
 
@@ -55,7 +50,7 @@ function DeckCard({ deck, onPress }: DeckCardProps) {
 
         <HStack className="justify-between items-center mt-3">
           <Text className="text-sm text-gray-500">
-            {deck.cardCount} {deck.cardCount === 1 ? 'card' : 'cards'}
+            {plural('card', deck.cardCount)}
           </Text>
           <Text className="text-sm text-gray-400">
             Updated {formatDate(deck.updatedAt)}
@@ -89,9 +84,9 @@ function DecksContent() {
   if (error) {
     return (
       <SafeAreaView className="flex-1">
-        <QueryErrorFallback 
-          error={error} 
-          onRetry={() => refetch()} 
+        <QueryErrorFallback
+          error={error}
+          onRetry={() => refetch()}
           isLoading={isLoading}
         />
       </SafeAreaView>
