@@ -28,7 +28,6 @@ server.register(import('@fastify/cors'), {
     if (allowedOrigins.includes(origin)) return callback(null, true)
     if (origin.startsWith('flashd://')) return callback(null, true)
 
-    console.log('CORS rejected origin:', origin, 'Allowed:', allowedOrigins)
     return callback(new Error('Not allowed by CORS'), false)
   },
   credentials: true,

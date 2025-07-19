@@ -1,6 +1,6 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { QueryErrorFallback } from '@/components/QueryErrorFallback'
-import { useToastNotifications } from '@/components/alerts'
+import { useToastNotifications } from '@/components/toast'
 import { Form, FormInput } from '@/components/forms'
 import { Box } from '@/components/ui/box'
 import { Button, ButtonText } from '@/components/ui/button'
@@ -247,12 +247,11 @@ function DecksContent() {
 
   const handleCreateDeck = async (data: DeckFormData) => {
     try {
-      console.log('Form data received:', data)
       await createDeck(data as DeckCreateInput)
-      showSuccess({ title: 'Success', description: 'Deck created successfully!' })
+      showSuccess({ title: 'Deck created successfully!' })
     } catch (err) {
       console.error('Create deck error:', err)
-      showError({ title: 'Error', description: 'Failed to create deck' })
+      showError({ title: 'Failed to create deck' })
     }
   }
 
@@ -261,11 +260,11 @@ function DecksContent() {
 
     try {
       await updateDeck({ id: editingDeck.id, ...data })
-      showSuccess({ title: 'Success', description: 'Deck updated successfully!' })
+      showSuccess({ title: 'Deck updated successfully!' })
       setEditingDeck(null)
     } catch (err) {
       console.error('Update deck error:', err)
-      showError({ title: 'Error', description: 'Failed to update deck' })
+      showError({ title: 'Failed to update deck' })
     }
   }
 

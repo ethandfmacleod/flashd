@@ -1,15 +1,15 @@
-import { Button, ButtonText } from '@/components/ui/button'
-import { Heading } from '@/components/ui/heading'
-import { Text } from '@/components/ui/text'
 import {
   AlertDialog,
   AlertDialogBackdrop,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogCloseButton,
-  AlertDialogFooter,
   AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
 } from '@/components/ui/alert-dialog'
+import { Button, ButtonText } from '@/components/ui/button'
+import { Heading } from '@/components/ui/heading'
+import { Text } from '@/components/ui/text'
 import React from 'react'
 
 export interface ConfirmDialogProps {
@@ -37,9 +37,7 @@ export function ConfirmDialog({
   isLoading = false,
   showCloseButton = true,
 }: ConfirmDialogProps) {
-  const handleConfirm = () => {
-    onConfirm()
-  }
+  const handleConfirm = () => onConfirm()
 
   return (
     <AlertDialog isOpen={isOpen} onClose={onClose}>

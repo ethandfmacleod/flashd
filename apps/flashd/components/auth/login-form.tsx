@@ -1,7 +1,7 @@
 import { loginSchema, LoginSchemaType } from '@/constants/schemas'
 import { authClient } from '@/lib/auth'
 import React, { useState } from 'react'
-import { useToastNotifications } from '../alerts'
+import { useToastNotifications } from '../toast'
 import { Form, FormInput } from '../forms'
 
 export function LoginForm() {

@@ -1,4 +1,4 @@
-import { useToastNotifications } from '@/components/alerts'
+import { useToastNotifications } from '@/components/toast'
 import { Box } from '@/components/ui/box'
 import { HStack } from '@/components/ui/hstack'
 import { Pressable } from '@/components/ui/pressable'
