@@ -1,6 +1,7 @@
+import 'dotenv/config'
 import { fastifyTRPCPlugin, FastifyTRPCPluginOptions } from '@trpc/server/adapters/fastify'
 import fastify from 'fastify'
-import { auth } from 'src/lib/auth'
+import { auth } from './lib/auth'
 import { AppRouter, appRouter } from './routers'
 import { createContext } from './trpc/context'
 
@@ -9,34 +10,49 @@ const server = fastify({
   logger: true,
 })
 
-const isDev = process.env.NODE_ENV === 'development'
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || []
+const isDev = process.env.NODE_ENV !== 'production'
 
-// Dev common origins
-const devOrigins = [
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-  'http://localhost:8081',
-  'http://127.0.0.1:8081',
-  'flashd://',
-]
+const allowedOrigins = isDev
+  ? [
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'http://localhost:8081',
+      'http://127.0.0.1:8081',
+      'flashd://',
+    ]
+  : (process.env.ALLOWED_ORIGINS?.split(',') ?? ['flashd://'])
+
+console.log('Environment:', { isDev, NODE_ENV: process.env.NODE_ENV, allowedOrigins })
 
 server.register(import('@fastify/cors'), {
   origin: (origin, callback) => {
-    // Allow requests with no origin (for mobile build)
+    // Allow requests with no origin (for mobile apps)
     if (!origin) return callback(null, true)
 
-    const allowedList = isDev ? [...allowedOrigins, ...devOrigins] : allowedOrigins
-
-    if (allowedList.includes(origin) || origin.startsWith('flashd://')) {
+    // Check if origin is in allowed list
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true)
     }
 
+    // Allow any flashd:// origin
+    if (origin.startsWith('flashd://')) {
+      return callback(null, true)
+    }
+
+    console.log('CORS rejected origin:', origin, 'Allowed:', allowedOrigins)
     return callback(new Error('Not allowed by CORS'), false)
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-forwarded-proto', 'x-forwarded-host'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'x-forwarded-proto',
+    'x-forwarded-host',
+    'Cookie',
+  ],
+  preflightContinue: false,
+  optionsSuccessStatus: 200,
 })
 
 server.all('/api/auth/*', async (request, reply) => {
@@ -70,8 +86,8 @@ server.register(fastifyTRPCPlugin, {
   trpcOptions: {
     router: appRouter,
     createContext,
-    onError({ path, error }: { path: string; error: any }) {
-      console.error(`Error in tRPC handler on path '${path}':`, error)
+    onError(opts) {
+      console.error(`Error in tRPC handler on path '${opts.path}':`, opts.error)
     },
   } satisfies FastifyTRPCPluginOptions<AppRouter>['trpcOptions'],
 })

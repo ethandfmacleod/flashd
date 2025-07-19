@@ -1,6 +1,7 @@
-import { auth } from 'src/lib/auth'
-import { isAuth } from 'src/trpc/middleware'
-import { publicProcedure, router } from 'src/trpc/utils'
+import { auth } from '../lib/auth'
+import { isAuth } from '../trpc/middleware'
+import { publicProcedure, router } from '../trpc/utils'
+import { fastifyHeadersToWebHeaders } from '../lib/headers'
 import { z } from 'zod'
 
 export const authRouter = router({
@@ -27,13 +28,13 @@ export const authRouter = router({
           body: {
             email: input.email,
             password: input.password,
-            name: input.name,
+            name: input.name || input.email.split('@')[0],
           },
-          headers: ctx.req.headers as any,
+          headers: fastifyHeadersToWebHeaders(ctx.req.headers),
         })
 
         return { success: true, user: result.user }
-      } catch (error) {
+      } catch {
         throw new Error('Failed to create account')
       }
     }),
@@ -53,11 +54,11 @@ export const authRouter = router({
             email: input.email,
             password: input.password,
           },
-          headers: ctx.req.headers as any,
+          headers: fastifyHeadersToWebHeaders(ctx.req.headers),
         })
 
         return { success: true, user: result.user }
-      } catch (error) {
+      } catch {
         throw new Error('Invalid credentials')
       }
     }),
@@ -66,11 +67,11 @@ export const authRouter = router({
   signOut: publicProcedure.mutation(async ({ ctx }) => {
     try {
       await auth.api.signOut({
-        headers: ctx.req.headers as any,
+        headers: fastifyHeadersToWebHeaders(ctx.req.headers),
       })
 
       return { success: true }
-    } catch (error) {
+    } catch {
       throw new Error('Failed to sign out')
     }
   }),

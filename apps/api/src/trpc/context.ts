@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { auth } from '../lib/auth'
 import { db } from '../lib/db'
+import { fastifyHeadersToWebHeaders } from '../lib/headers'
 
 export async function createContext({ req, res }: { req: FastifyRequest; res: FastifyReply }) {
   const authHeader = req.headers.authorization
@@ -9,13 +10,13 @@ export async function createContext({ req, res }: { req: FastifyRequest; res: Fa
 
   if (token) {
     session = await auth.api.getSession({
-      headers: {
+      headers: new Headers({
         authorization: `Bearer ${token}`,
-      },
+      }),
     })
   } else {
     session = await auth.api.getSession({
-      headers: req.headers as any,
+      headers: fastifyHeadersToWebHeaders(req.headers),
     })
   }
 
@@ -27,3 +28,5 @@ export async function createContext({ req, res }: { req: FastifyRequest; res: Fa
     session: session?.session || null,
   }
 }
+
+export type Context = Awaited<ReturnType<typeof createContext>>

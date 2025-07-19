@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server'
-import { db } from 'src/lib/db'
-import { isAuth } from 'src/trpc/middleware'
-import { publicProcedure, router } from 'src/trpc/utils'
+import { db } from '../lib/db'
+import { isAuth } from '../trpc/middleware'
+import { publicProcedure, router } from '../trpc/utils'
 import { z } from 'zod'
 
 export const deckRouter = router({

@@ -12,9 +12,10 @@ import { ActivityIndicator, FlatList, RefreshControl } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { plural } from '@/lib/utility/functions'
+import { Deck } from '@/types/api'
 
 interface DeckCardProps {
-  deck: any
+  deck: Deck
   onPress: () => void
 }
 
@@ -74,11 +75,11 @@ function DecksContent() {
   const { decks, isLoading, error, refetch } = useDecks()
 
   const handleDeckPress = (deckId: string) => {
-    router.push(`/deck/${deckId}` as any)
+    router.push(`/deck/${deckId}`)
   }
 
   const handleCreateDeck = () => {
-    router.push('/deck/create' as any)
+    router.push('/deck/create')
   }
 
   if (error) {
