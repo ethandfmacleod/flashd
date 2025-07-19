@@ -193,4 +193,86 @@ export const deckRouter = router({
         accuracy: Math.round(accuracy * 10) / 10,
       }
     }),
+
+  // Create new card
+  createCard: publicProcedure
+    .use(isAuth)
+    .input(
+      z.object({
+        deckId: z.string(),
+        front: z.string().min(1).max(500),
+        back: z.string().min(1).max(1000),
+        hint: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Verify deck ownership
+      const deck = await db.deck.findFirst({
+        where: { id: input.deckId, userId: ctx.user.id },
+      })
+
+      if (!deck) throw new TRPCError({ code: 'BAD_REQUEST', message: 'Deck not found' })
+
+      const card = await db.card.create({
+        data: {
+          front: input.front,
+          back: input.back,
+          hint: input.hint,
+          deckId: input.deckId,
+        },
+      })
+
+      return card
+    }),
+
+  // Update a card
+  updateCard: publicProcedure
+    .use(isAuth)
+    .input(
+      z.object({
+        id: z.string(),
+        front: z.string().min(1).max(500).optional(),
+        back: z.string().min(1).max(1000).optional(),
+        hint: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const { id, ...updateData } = input
+
+      // Verify card ownership through deck
+      const existingCard = await db.card.findFirst({
+        where: { id },
+        include: { deck: true },
+      })
+
+      if (!existingCard || existingCard.deck.userId !== ctx.user.id) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Card not found' })
+      }
+
+      const card = await db.card.update({
+        where: { id },
+        data: updateData,
+      })
+
+      return card
+    }),
+
+  // Delete a card
+  deleteCard: publicProcedure
+    .use(isAuth)
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      // Verify card ownership through deck
+      const existingCard = await db.card.findFirst({
+        where: { id: input.id },
+        include: { deck: true },
+      })
+
+      if (!existingCard || existingCard.deck.userId !== ctx.user.id) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Card not found' })
+      }
+
+      await db.card.delete({ where: { id: input.id } })
+      return { success: true }
+    }),
 })

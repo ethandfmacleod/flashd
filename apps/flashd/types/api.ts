@@ -34,6 +34,12 @@ export type DeckStats = DeckGetStatsOutput
 
 // Card Types (extracted from deck with cards)
 export type Card = NonNullable<DeckWithCards['cards']>[0]
+export type CardCreateInput = RouterInputs['deck']['createCard']
+export type CardCreateOutput = RouterOutputs['deck']['createCard']
+export type CardUpdateInput = RouterInputs['deck']['updateCard']
+export type CardUpdateOutput = RouterOutputs['deck']['updateCard']
+export type CardDeleteInput = RouterInputs['deck']['deleteCard']
+export type CardDeleteOutput = RouterOutputs['deck']['deleteCard']
 
 // User Types
 export type User = NonNullable<AuthGetSessionOutput['user']>

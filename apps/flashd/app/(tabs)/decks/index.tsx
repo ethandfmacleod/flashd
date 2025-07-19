@@ -1,7 +1,7 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { Form, FormInput } from '@/components/forms'
 import { QueryErrorFallback } from '@/components/QueryErrorFallback'
 import { useToastNotifications } from '@/components/toast'
-import { Form, FormInput } from '@/components/forms'
 import { Box } from '@/components/ui/box'
 import { Button, ButtonText } from '@/components/ui/button'
 import { HStack } from '@/components/ui/hstack'
@@ -242,7 +242,7 @@ function DecksContent() {
   const [deckToDelete, setDeckToDelete] = useState<Deck | null>(null)
 
   const handleDeckPress = (deckId: string) => {
-    router.push(`/deck/${deckId}`)
+    router.push(`/decks/${deckId}`)
   }
 
   const handleCreateDeck = async (data: DeckFormData) => {
